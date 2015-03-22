@@ -1,0 +1,59 @@
+Interactive K-Means
+========================================================
+author: Alejandro Perez
+date: Sunday, March 22, 2015
+transition: rotate
+
+
+
+Interactive K-Means Overview
+========================================================
+
+Interactive K means is an application that uses iris dataset to show the basic process of clustering.
+It includes
+
+- Data Selection
+- Data Preparation
+- Cluster Centers Selection
+- Cluster Visualization
+- Cluster Results
+
+
+
+Process (Data Preparation)
+========================================================
+The App can select the columns you want to process and scale them
+
+```{r echo=FALSE}
+head(iris[1])
+```
+***
+After the process, the results will be reflected in the App
+```{r echo=FALSE}
+head(scale(iris[1]))
+```
+
+Process (Applying Clustering)
+========================================================
+The user can select the number of clusters and visualize the change immediately
+
+```{r, echo=FALSE,message=FALSE }
+suppressPackageStartupMessages(library(UsingR))
+suppressPackageStartupMessages(library(cluster))
+data<-iris[-5]
+fit <- kmeans(data, 4)
+           
+      #Creating fitted cluster plot
+      clusplot(data, fit$cluster, color=TRUE, shade=TRUE, 
+               labels=4, lines=0)
+```
+Process (Cluster Result)
+========================================================
+<small>Any change in the number of centers, the number of variables or preprocessing of them can be visualized in the results</small>
+***
+<small>
+```{r, echo=TRUE,message=FALSE,fig.height=5 }
+ par(mar = c(5, 4, 6, 2));height <- table(fit$cluster);mp <- barplot(height, main = "Clusters Distribution",xlab="Cluster",ylab="Number of Rows");text(mp, height, labels = format(height, 2), pos = 1, cex = 0.9)
+```
+</small>
+
